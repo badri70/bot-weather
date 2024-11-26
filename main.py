@@ -22,7 +22,8 @@ async def setup_scheduler():
         send_weather_notification,  # Функция для выполнения
         trigger="cron",             # Запуск по расписанию
         hour=9,                     # В 9 утра
-        minute=0
+        minute=20,
+        args=[bot]
     )
     scheduler.start()
 

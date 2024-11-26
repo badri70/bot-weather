@@ -1,5 +1,5 @@
-from aiogram import Router
-from aiogram.types import Message, ReplyKeyboardRemove
+from aiogram import Router, Bot
+from aiogram.types import Message
 from aiogram.filters import CommandStart
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.fsm.state import State, StatesGroup
@@ -48,11 +48,11 @@ async def save_notification_city(message: Message, state: FSMContext):
     await state.clear()
 
 
-async def send_weather_notification():
+async def send_weather_notification(bot: Bot):
     for user_id, city in user_notifications.items():
         weather_text = await get_weather(city)  # Получаем текущую погоду для города
         try:
-            await router.bot.send_message(user_id, f"Ежедневное уведомление о погоде для города {city.title()}:\n\n{weather_text}")
+            await bot.send_message(user_id, f"Ежедневное уведомление о погоде для города {city.title()}:\n\n{weather_text}")
         except Exception as e:
             print(f"Не удалось отправить сообщение пользователю {user_id}: {e}")
 
